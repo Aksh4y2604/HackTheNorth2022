@@ -20,8 +20,9 @@ CREATE TABLE applicant (
     tester_age INT8
 );
 
-
-SELECT company_name, title, product_desc, pay from applicant 
+-- company_name, title, product_desc, pay
+SELECT * from applicant 
 LEFT JOIN tester ON tester.ID = applicant.ID
 WHERE
-(tester.age >= target_min_age AND tester.age <= target_max_age) ;
+age >= target_min_age
+AND company_name IS NOT NULL;
