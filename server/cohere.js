@@ -2,81 +2,124 @@ const cohere = require("cohere-ai");
 
 cohere.init("sXrmZhvNoYZYRPmqrQoDceA5kiH24Y8zwXSWAcjY");
 
-exports.predictCategories = async () => {
-  return [];
+exports.predictCategories = async (review) => {
   const response = await cohere.classify({
     model: "large",
-    inputs: [
-      "1,200-Piece 8 x 2-1/2-inch Brown Deck Screws",
-      "M18 18V Lithium-Ion Cordless 5/8-inch SDS-Plus Rotary Hammer",
-    ],
+    inputs: [review],
     examples: [
       {
-        text: "20V MAX ATOMIC Lithium-Ion Cordless Brushless 5/8-inch SDS Plus Rotary Hammer",
-        label: "Power tools",
+        text: "This app is pretty slow and unresponsive.",
+        label: "Speed",
       },
       {
-        text: "18V Lithium-Ion Cordless Hammer Drill Kit with 1.5 Ah Battery and Charger",
-        label: "Power tools",
+        text: "The website didn't load on time.",
+        label: "Speed",
       },
       {
-        text: "15-amp Corded 12-inch Double-Bevel Sliding Compound Miter Saw",
-        label: "Power tools",
+        text: "The application was not fast enough for my needs.",
+        label: "Speed",
       },
       {
-        text: "15 Amp 12 -Inch Sliding Compound Mitre Saw",
-        label: "Power tools",
+        text: "I didn't like the app because it was too slow.",
+        label: "Speed",
       },
       {
-        text: "M18 18V Lithium-Ion Cordless SAWZALL Reciprocating Saw",
-        label: "Power tools",
+        text: "Your application is very slow, which made me not want to use it.",
+        label: "Speed",
       },
       {
-        text: "1/2 in. x 4 ft. x 8 ft. UltraLight Mold Tough Drywall Panel",
-        label: "Cement boards",
+        text: "Your application looks bad.",
+        label: "Design",
       },
       {
-        text: "Cement Board with EdgeGuard 1/2 in. x 4 ft. x 8 ft.",
-        label: "Cement boards",
+        text: "I didn't like the colour scheme of your application.",
+        label: "Design",
       },
       {
-        text: "Wall Repair Patch Kit with Drydex Spackling",
-        label: "Cement boards",
+        text: "The colours of your app look bad.",
+        label: "Design",
       },
       {
-        text: "Dust Control Drywall Compound, Ready-Mixed, 12 L Pail",
-        label: "Cement boards",
+        text: "Your application is ugly.",
+        label: "Design",
       },
       {
-        text: "EZ Grid Cement Board 3 ft. x 5 ft. X 1/4 inch",
-        label: "Cement boards",
+        text: "I wish your application looked better.",
+        label: "Design",
       },
       {
-        text: "Machine Mud Drywall Compound, Ready-Mixed, 17 L Carton",
-        label: "Cement boards",
+        text: "I don't like the look of your website.",
+        label: "Design",
       },
       {
-        text: "#6 x 1-1/4-inch Flat Head Phillips Drive Coarse Thread Drywall Screws - 1000pcs",
-        label: "Screws",
+        text: "Your application does not have keyboard navigation, so it is not accessible for people with limited mobility.",
+        label: "Accessibility",
       },
       {
-        text: "3/8-inch x 4-inch Pro Pack Black Carriage Bolts (5 Sets)",
-        label: "Screws",
+        text: "I couldn't navigate your website with keyboard, which means it wasn't accessible.",
+        label: "Accessibility",
       },
       {
-        text: "M8-1.25 x 20mm Class 8.8 Metric Hex Cap Screw - DIN 933 Full Thread - Zinc Plated",
-        label: "Screws",
+        text: "Your app is not accessible for those with limited mobility, because it does not have keyboard navigation.",
+        label: "Accessibility",
       },
-      { text: "18-Gauge 2-inch Brad Nails (1000 per Box)", label: "Screws" },
       {
-        text: '120 X 3-1/4" Pro-Strip Nail Smooth Shank (3,000 - Pack)',
-        label: "Screws",
+        text: "Your images do not have alt text, making it less accessible to people with a screen reader.",
+        label: "Accessibility",
+      },
+      {
+        text: "The images in the app don't have alt text, so it isn't accessible for the visually impaired.",
+        label: "Accessibility",
+      },
+      {
+        text: "The app has low colour contrast, so it's not accessible to the visually impaired.",
+        label: "Accessibility",
+      },
+      {
+        text: "Your website has low colour contrast, so it's not accessible to people with low vision.",
+        label: "Accessibility",
+      },
+      {
+        text: "The application has low colour contrast, which means it's less accessible for the blind.",
+        label: "Accessibility",
+      },
+      {
+        text: "It was hard to learn the features of your website.",
+        label: "Usability",
+      },
+      {
+        text: "The application has a big learning curve.",
+        label: "Usability",
+      },
+      {
+        text: "Your app is hard to learn.",
+        label: "Usability",
+      },
+      {
+        text: "The app has too many features.",
+        label: "Usability",
+      },
+      {
+        text: "Your application is difficult to use.",
+        label: "Usability",
+      },
+      {
+        text: "Your website is hard to learn.",
+        label: "Usability",
+      },
+      {
+        text: "I'm finding it hard to use the application.",
+        label: "Usability",
+      },
+      {
+        text: "The app is hard to use.",
+        label: "Usability",
+      },
+      {
+        text: "I can't tell how to use your app.",
+        label: "Usability",
       },
     ],
   });
-  console.log(
-    `The confidence levels of the labels are ${JSON.stringify(
-      response.body.classifications
-    )}`
-  );
+  return response.body.classifications;
 };
