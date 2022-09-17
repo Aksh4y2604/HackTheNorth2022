@@ -1,10 +1,12 @@
 const express = require("express");
 const { predictCategories } = require("./cohere");
+const { cockInit } = require("./db");
 const { getMatches } = require("./match");
 const app = express();
 const port = 3000;
 
 app.get("/applications", async (req, res) => {
+  cockInit();
   const related = await getMatches();
   res.send(related);
 });
