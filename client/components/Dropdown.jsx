@@ -1,11 +1,12 @@
 /* This example requires Tailwind CSS v2.0+ */
-import { Fragment } from 'react'
+import { Fragment, useDebugValue } from 'react'
 import { Menu, Transition } from '@headlessui/react'
 import { ChevronDownIcon } from '@heroicons/react/20/solid'
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
 }
+
 const Ratings = [
     '1-Poor', 
     '2-Bad', 
@@ -34,9 +35,9 @@ export default function Dropdown() {
       >
         <Menu.Items className="absolute right-0 z-20 mt-2 w-56 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black overflow-auto ring-opacity-5 focus:outline-none">
                   <div className="py-1 overflow-visible z-100">
-                      {Ratings.map((rating) => {
+                      {Ratings.map((rating, key) => {
                           return(
-                          <Menu.Item>
+                          <Menu.Item key={key}>
                           {({ active }) => (
                             <a
                               href="#"
