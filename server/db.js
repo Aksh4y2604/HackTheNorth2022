@@ -33,9 +33,9 @@ exports.cockInit = async () => {
 
 // get applications, search by age and demographics
 // age can be null where you don't search for it
-async function getMatchedApplications(client, callback, minAge, maxAge, industr) {
+async function getMatchedApplications(client, callback, testerId, industr) {
   await client.query("BEGIN;");
-  const result = await client.query("SELECT * FROM tester;", callback);
+  const result = await client.query(`SELECT company_name,product_desc, title, pay from applicant WHERE target_min_age <= (SELECT age from tester WHERE id = ${testerId}) AND (SELECT age from tester WHERE id = ${testerId}) <= CAST(target_max_age as INT);`, callback);
   await client.query("COMMIT;");
   return result;
 }

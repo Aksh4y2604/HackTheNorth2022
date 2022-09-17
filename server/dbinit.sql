@@ -32,8 +32,12 @@ CREATE TABLE reviews (
     neg_feedback STRING
 );
 -- company_name, title, product_desc, pay
-SELECT * from applicant 
-LEFT JOIN tester ON tester.ID = applicant.ID
-WHERE
-age >= target_min_age
-AND company_name IS NOT NULL;
+SELECT company_name,product_desc, title, pay from applicant 
+WHERE target_min_age <= (SELECT age from tester WHERE id = ${testerId})
+AND (SELECT age from tester WHERE id = ${testerId}) <= CAST(target_max_age as INT);
+-- WHERE
+-- age < CAST(target_max_age AS INT)
+-- AND company_name IS NOT NULL;
+
+SELECT company_name, product_desc, title, pay from applicant 
+WHERE target_occupation = (SELECT occupation from tester where id = ${testerID});
