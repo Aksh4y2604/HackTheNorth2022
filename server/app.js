@@ -5,7 +5,7 @@ const { cockInit } = require("./db");
 const { getMatches } = require("./match");
 
 const app = express();
-const port = 3000;
+const port = process.env.PORT || 3000;
 
 app.get("/applications", async (req, res) => {
   cockInit();
@@ -21,6 +21,6 @@ app.post("/review", async (req, res) => {
   res.sendStatus(200);
 });
 
-app.listen(port, () => {
+app.listen(port, "0.0.0.0", () => {
   console.log(`Example app listening on port ${port}`);
 });
