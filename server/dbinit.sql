@@ -17,7 +17,12 @@ CREATE TABLE applicant (
     target_occupation STRING,
     target_interests STRING,
     target_max_age INT8,
-    tester_age INT8
+    tester_age INT8,
+    issue_count_speed INT8 DEFAULT 0,
+    issue_count_design INT8 DEFAULT 0,
+    issue_count_accessibility INT8 DEFAULT 0,
+    issue_count_learning_curve INT8 DEFAULT 0,
+    issue_count_usability INT8 DEFAULT 0
 );
 
 -- company_name, title, product_desc, pay

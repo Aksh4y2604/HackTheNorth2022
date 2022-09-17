@@ -24,7 +24,8 @@ exports.cockInit = async () => {
     }
   }
 
-  await getMatchedApplications(client, cb, 18, 50, "technology");
+  // await getMatchedApplications(client, cb, 18, 50, "technology");
+  await incrementIssue(client, cb, "1", "speed");
 
   // Exit program
   process.exit();
@@ -35,6 +36,14 @@ exports.cockInit = async () => {
 async function getMatchedApplications(client, callback, minAge, maxAge, industr) {
   await client.query("BEGIN;");
   const result = await client.query("SELECT * FROM tester;", callback);
+  await client.query("COMMIT;");
+  return result;
+}
+
+async function incrementIssue(client, callback, applicationId, issueName) {
+  await client.query("BEGIN;");
+  const columnName = 'issue_count_' + issueName;
+  const result = await client.query("UPDATE applicant SET " + columnName + " = " + columnName + " + 1 WHERE id = " + applicationId + ";", callback);
   await client.query("COMMIT;");
   return result;
 }
