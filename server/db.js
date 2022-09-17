@@ -47,3 +47,24 @@ async function incrementIssue(client, callback, applicationId, issueName) {
   await client.query("COMMIT;");
   return result;
 }
+
+async function getReviewsByApplicationId(client, callback, applicationId) {
+  await client.query("BEGIN;");
+  const result = await client.query("SELECT * FROM reviews WHERE id = " + applicationId + ";", callback);
+  await client.query("COMMIT;");
+  return result;
+}
+
+async function getApplicationByApplicationId(client, callback, applicationId) {
+  await client.query("BEGIN;");
+  const result = await client.query("SELECT * FROM applicant WHERE id = " + applicationId + ";", callback);
+  await client.query("COMMIT;");
+  return result;
+}
+
+async function getApplicationByName(client, callback, name) {
+  await client.query("BEGIN;");
+  const result = await client.query("SELECT * FROM applicant WHERE company_name = '" + name + "';", callback);
+  await client.query("COMMIT;");
+  return result;
+}
