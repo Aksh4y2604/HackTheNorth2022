@@ -3,6 +3,7 @@ const cohere = require("cohere-ai");
 cohere.init("sXrmZhvNoYZYRPmqrQoDceA5kiH24Y8zwXSWAcjY");
 
 exports.predictCategories = async () => {
+  return [];
   const response = await cohere.classify({
     model: "large",
     inputs: [
