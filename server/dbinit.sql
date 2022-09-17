@@ -25,6 +25,12 @@ CREATE TABLE applicant (
     issue_count_usability INT8 DEFAULT 0
 );
 
+CREATE TABLE reviews (
+    ID INT8 PRIMARY KEY NOT NULL,
+    rating STRING,
+    pos_feedback STRING,
+    neg_feedback STRING
+);
 -- company_name, title, product_desc, pay
 SELECT * from applicant 
 LEFT JOIN tester ON tester.ID = applicant.ID

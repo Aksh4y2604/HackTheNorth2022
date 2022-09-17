@@ -47,3 +47,4 @@ async function incrementIssue(client, callback, applicationId, issueName) {
   await client.query("COMMIT;");
   return result;
 }
+
