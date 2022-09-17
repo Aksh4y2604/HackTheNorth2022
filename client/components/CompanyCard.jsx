@@ -3,16 +3,16 @@ export default function Example({ companies }) {
   return (
     <ul role="list" className="mx-auto grid grid-cols-1 gap-6">
       {companies.map((company) => (
-        <li key={company.email} className="text-center mx-auto col-span-1 w-3/4 divide-y divide-gray-200 rounded-lg bg-white shadow h-80">
+        <li key={company.id} className="text-center mx-auto col-span-1 w-3/4 divide-y divide-gray-200 rounded-lg bg-white shadow h-80">
           <div className='flex flex-col items-center h-5/6 justify-between sm:space-x-6 sm:p-6 p-3 sm:flex-row'>
             <div className="flex w-1/3">
               <div className="flex-1 truncate">
-                <a className='no-decoration' href={company.url}>
+                <a className='no-decoration' href={company.demo}>
                   <div className="flex flex-col sm:flex-row items-center space-x-3 justify-center">
 
-                    <img className="h-20 w-20 flex-shrink-0 rounded-full object-scale-down bg-gray-300" src={company.imageUrl} alt="" />
+                    {company.imageUrl ? <img className="h-20 w-20 flex-shrink-0 rounded-full object-scale-down bg-gray-300" src={company?.imageUrl} alt="" /> : null}
 
-                    <h3 className="underline truncate text-sm font-medium text-gray-900">{company.name}</h3>
+                    <h3 className="underline truncate text-sm font-medium text-gray-900">{company.company}</h3>
 
                   </div>
                 </a>
@@ -28,7 +28,7 @@ export default function Example({ companies }) {
             <div className="-mt-px flex divide-x divide-gray-200">
               <div className="flex w-0 flex-1">
                 <Link
-                  href={company?.slug}
+                  href={`review/${company.company.replace(/\s+/g, '-').toLowerCase()}`}
                   className="relative -mr-px inline-flex w-0 flex-1 items-center justify-center rounded-bl-lg border border-transparent py-4 text-sm font-medium text-gray-700 hover:text-gray-500"
                 >
                   <a className="relative -mr-px inline-flex w-0 flex-1 items-center justify-center rounded-bl-lg border border-transparent py-4 text-sm font-medium text-gray-700 hover:text-gray-500">
@@ -47,7 +47,7 @@ export default function Example({ companies }) {
                     <path strokeLinecap="round" strokeLinejoin="round" d="M12 6v12m-3-2.818l.879.659c1.171.879 3.07.879 4.242 0 1.172-.879 1.172-2.303 0-3.182C13.536 12.219 12.768 12 12 12c-.725 0-1.45-.22-2.003-.659-1.106-.879-1.106-2.303 0-3.182s2.9-.879 4.006 0l.415.33M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                   </svg>
 
-                  <span className="ml-3">{company?.price}</span>
+                  <span className="ml-3">{company?.pay}</span>
                 </a>
               </div>
             </div>

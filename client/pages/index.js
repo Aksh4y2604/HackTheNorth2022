@@ -3,7 +3,8 @@ import CompanyCard from '../components/CompanyCard'
 import Navbar from '../components/Navbar'
 import Header from '../components/Header'
 import Footer from '../components/Footer'
-const companies = [
+import axios from 'axios'
+const companies1 = [
   {
     name: 'Jane Street',
     title: 'Hedge Fund in New York',
@@ -41,10 +42,9 @@ const companies = [
 ]
 
 
-function Index() {
+function Index({ companies }) {
   return (
     <>
-    
       <div className='space-y-2'>
         <Navbar></Navbar>
         <Header></Header>
@@ -56,6 +56,18 @@ function Index() {
     </>
     
   )
+}
+
+
+export async function getStaticProps() {
+
+  const companies = await axios.get('https://fathomless-dawn-21585.herokuapp.com/applications');
+  return {
+    props: {
+      companies: companies.data,
+    },
+    revalidate: 3600, // revalidate every hour
+  };
 }
 
 export default Index
