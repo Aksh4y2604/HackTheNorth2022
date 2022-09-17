@@ -5,34 +5,39 @@ import Header from '../components/Header'
 import Footer from '../components/Footer'
 const companies = [
   {
-    name: 'Jane Cooper',
-    title: 'Regional Paradigm Technician',
-    url:'https://www.google.com',
-    email: 'janecooper@example.com',
-    description:'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Fusce ut placerat orci nulla pellentesque. Aenean euismod elementum nisi quis. Viverra aliquet eget sit amet tellus cras. Enim lobortis scelerisque fermentum dui faucibus in..',
+    name: 'Jane Street',
+    title: 'Hedge Fund in New York',
+    url:'https://www.janestreet.com/',
+    email: '',
+    slug:'review/jane-steat', 
+    description:'Jane Street is a research-driven trading firm where curious people work together on deep problems. We would like you to review our platform',
     imageUrl:
-      'https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=4&w=256&h=256&q=60',
-    price:'500CAD'
+      'https://avatars.githubusercontent.com/u/3384712?s=280&v=4',
+    price:'5000CAD'
   },
   {
-    name: 'Jane Cooper',
-    title: 'Regional Paradigm Technician',
-    role: 'Admin',
-    email: 'janecooper@example.com',
-    telephone: '+1-202-555-0170',
+    name: 'Jane Street',
+    title: 'Hedge Fund in New York',
+    slug:'review/jane-steat', 
+    url:'https://www.janestreet.com/',
+    email: '',
+    description:'Jane Street is a research-driven trading firm where curious people work together on deep problems. We would like you to review our platform',
     imageUrl:
-      'https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=4&w=256&h=256&q=60',
+      'https://avatars.githubusercontent.com/u/3384712?s=280&v=4',
+    price:'5000CAD'
   },
   {
-    name: 'Jane Cooper',
-    title: 'Regional Paradigm Technician',
-    role: 'Admin',
-    email: 'janecooper@example.com',
-    telephone: '+1-202-555-0170',
+    name: 'Jane Street',
+    title: 'Hedge Fund in New York',
+    slug:'review/jane-steat', 
+    url:'https://www.janestreet.com/',
+    email: '',
+    description:'Jane Street is a research-driven trading firm where curious people work together on deep problems. We would like you to review our platform',
     imageUrl:
-      'https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=4&w=256&h=256&q=60',
+      'https://avatars.githubusercontent.com/u/3384712?s=280&v=4',
+    price:'5000CAD'
   },
-  // More people...
+  // More companies ...
 ]
 
 
