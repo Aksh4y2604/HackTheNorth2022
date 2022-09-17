@@ -35,7 +35,7 @@ exports.cockInit = async () => {
 // age can be null where you don't search for it
 async function getMatchedApplications(client, callback, testerId, industr) {
   await client.query("BEGIN;");
-  const result = await client.query(`SELECT company_name,product_desc, title, pay from applicant WHERE target_min_age <= (SELECT age from tester WHERE id = ${testerId}) AND (SELECT age from tester WHERE id = ${testerId}) <= CAST(target_max_age as INT);`, callback);
+  const result = await client.query(`SELECT company_name,product_desc, title, pay from applicant WHERE target_min_age <= (SELECT age from tester WHERE id = ${testerId}) AND (SELECT age from tester WHERE id = ${testerId}) <= CAST(target_max_age as INT) AND (target_occupation = (SELECT occupation from tester where id = ${testerID}));`, callback);
   await client.query("COMMIT;");
   return result;
 }
@@ -47,4 +47,3 @@ async function incrementIssue(client, callback, applicationId, issueName) {
   await client.query("COMMIT;");
   return result;
 }
-
