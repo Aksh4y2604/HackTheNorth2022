@@ -15,5 +15,10 @@ CREATE TABLE applicant (
     pay INT8,
     target_age INT8,
     target_occupation STRING,
-    target_interests STRING
+    target_interests STRING,
+    issue_count_speed INT8 DEFAULT 0,
+    issue_count_design INT8 DEFAULT 0,
+    issue_count_accessibility INT8 DEFAULT 0,
+    issue_count_learning_curve INT8 DEFAULT 0,
+    issue_count_usability INT8 DEFAULT 0
 );
