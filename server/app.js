@@ -16,14 +16,14 @@ const port = process.env.PORT || 3000;
 
 const initEndpoints = (client) => {
   app.get("/application", async (req, res) => {
-    if (!req.query || !req.query.applicantId) return res.sendStatus(400);
+    if (!req.query || !req.query.companyName) return res.sendStatus(400);
 
     await getApplicationOnDashboard(
       client,
       (err, application) => {
         res.send(application.rows[0]);
       },
-      req.query.applicantId
+      req.query.companyName
     );
   });
 
@@ -43,6 +43,7 @@ const initEndpoints = (client) => {
     // Validation
     if (
       !req.body ||
+      !req.body.companyName ||
       !req.body.applicantId ||
       !req.body.feedback ||
       !req.body.stars ||
@@ -64,7 +65,7 @@ const initEndpoints = (client) => {
     await populateReviewTable(
       client,
       () => {},
-      req.body.applicantId,
+      req.body.companyName,
       req.body.feedback,
       req.body.stars,
       req.body.firstName,
@@ -75,13 +76,13 @@ const initEndpoints = (client) => {
   });
 
   app.get("/reviews", async (req, res) => {
-    if (!req.query || !req.query.applicantId) return res.sendStatus(400);
+    if (!req.query || !req.query.companyName) return res.sendStatus(400);
 
     await getReviewsOnDashboard(
       client,
       (err, reviews) => {
         let avgRating = 0;
-        if (reviews.rows) {
+        if (reviews && reviews.rows) {
           reviews.rows.forEach((review) => {
             avgRating += parseInt(review.stars);
           });
@@ -89,10 +90,10 @@ const initEndpoints = (client) => {
         }
         res.send({
           averageRating: avgRating,
-          reviews: reviews.rows,
+          reviews: reviews ? reviews.rows : [],
         });
       },
-      req.query.applicantId
+      req.query.companyName
     );
   });
 
