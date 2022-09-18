@@ -33,8 +33,10 @@ CREATE TABLE reviews (
 );
 -- company_name, title, product_desc, pay
 SELECT company_name,product_desc, title, pay from applicant 
-WHERE target_min_age <= (SELECT age from tester WHERE id = ${testerId})
-AND (SELECT age from tester WHERE id = ${testerId}) <= CAST(target_max_age as INT);
+WHERE (target_occupation = (SELECT occupation from tester where id = 8))
+AND target_min_age <= (SELECT age from tester WHERE id = 8)
+AND (SELECT age from tester WHERE id = 8) <= CAST(target_max_age as INT);
+
 -- WHERE
 -- age < CAST(target_max_age AS INT)
 -- AND company_name IS NOT NULL;
