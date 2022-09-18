@@ -25,7 +25,7 @@ const initEndpoints = (client) => {
     // Get categories from Cohere
     const classification = await predictCategories(req.body.review);
     incrementIssue(client, () => {}, 3, classification[0].prediction);
-
+    
     res.sendStatus(200);
   });
 
