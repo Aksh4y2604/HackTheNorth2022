@@ -74,23 +74,25 @@ const initEndpoints = (client) => {
     res.sendStatus(200);
   });
 
-  app.get("reviews", async (req, res) => {
-    if (!req.body || !req.body.applicantId) return res.sendStatus(400);
+  app.get("/reviews", async (req, res) => {
+    if (!req.query || !req.query.applicantId) return res.sendStatus(400);
 
     await getReviewsOnDashboard(
       client,
       (err, reviews) => {
         let avgRating = 0;
-        reviews.forEach((review) => {
-          avgRating += review.rating;
-        });
-        avgRating /= reviews.length;
+        if (reviews.rows) {
+          reviews.rows.forEach((review) => {
+            avgRating += parseInt(review.stars);
+          });
+          avgRating /= reviews.rows.length;
+        }
         res.send({
           averageRating: avgRating,
-          reviews: reviews,
+          reviews: reviews.rows,
         });
       },
-      req.applicantId
+      req.query.applicantId
     );
   });
 
