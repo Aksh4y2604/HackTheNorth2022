@@ -58,17 +58,17 @@ async function populateReviewTable (client, callback, applicationId, feedback, r
 }
 exports.populateReviewTable = populateReviewTable;
 
-async function getApplicationOnDashboard (client, callback, applicationId) {
+async function getApplicationOnDashboard (client, callback, companyName) {
   await client.query("BEGIN;");
-  const query = `SELECT company_name, product_desc, title, pay, img_url, issue_count_speed, issue_count_design, issue_count_accessibility, issue_count_usability from applicant WHERE id = ${applicationId};`;
+  const query = `SELECT company_name, product_desc, title, pay, img_url, issue_count_speed, issue_count_design, issue_count_accessibility, issue_count_usability from applicant WHERE company_name = '${companyName}';`;
   await client.query(query, callback);
   await client.query("COMMIT;");
 }
 exports.getApplicationOnDashboard = getApplicationOnDashboard;
 
-async function getReviewsOnDashboard (client, callback, applicationId) {
+async function getReviewsOnDashboard (client, callback, companyName) {
   await client.query("BEGIN;");
-  const query= `SELECT first_name, last_name, stars, neg_feedback FROM reviews WHERE appl_id = ${applicationId};`;
+  const query= `SELECT first_name, last_name, stars, neg_feedback FROM reviews WHERE appl_id = '${companyName}';`;
   await client.query(query, callback);
   await client.query("COMMIT;");
 }

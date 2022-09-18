@@ -16,14 +16,14 @@ const port = process.env.PORT || 3000;
 
 const initEndpoints = (client) => {
   app.get("/application", async (req, res) => {
-    if (!req.query || !req.query.applicantId) return res.sendStatus(400);
+    if (!req.query || !req.query.companyName) return res.sendStatus(400);
 
     await getApplicationOnDashboard(
       client,
       (err, application) => {
         res.send(application.rows[0]);
       },
-      req.query.applicantId
+      req.query.companyName
     );
   });
 
@@ -75,7 +75,7 @@ const initEndpoints = (client) => {
   });
 
   app.get("/reviews", async (req, res) => {
-    if (!req.query || !req.query.applicantId) return res.sendStatus(400);
+    if (!req.query || !req.query.companyName) return res.sendStatus(400);
 
     await getReviewsOnDashboard(
       client,
@@ -92,7 +92,7 @@ const initEndpoints = (client) => {
           reviews: reviews.rows,
         });
       },
-      req.query.applicantId
+      req.query.companyName
     );
   });
 
