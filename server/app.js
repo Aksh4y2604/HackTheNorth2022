@@ -9,7 +9,7 @@ const port = process.env.PORT || 3000;
 
 const initEndpoints = (client) => {
   app.get("/applications", async (req, res) => {
-    if (!req.params || !req.params.testerId)
+    if (!req.query || !req.query.testerId)
       return res.sendStatus(400);
     await getApplications(
       client,
@@ -17,7 +17,7 @@ const initEndpoints = (client) => {
 
         res.send(related.rows);
       },
-      req.params.testerId
+      req.query.testerId
     );
   });
 
