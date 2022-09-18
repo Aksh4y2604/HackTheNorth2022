@@ -19,12 +19,12 @@ export default function Navbar() {
                   <a href='/'>
                     <img
                       className="block h-8 w-auto lg:hidden"
-                      src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
+                      src="https://svgshare.com/i/mmi.svg"
                       alt="Your Company"
                     />
                     <img
                       className="hidden h-8 w-auto lg:block"
-                      src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
+                      src="https://svgshare.com/i/mmi.svg"
                       alt="Your Company"
                     />
                   </a>
