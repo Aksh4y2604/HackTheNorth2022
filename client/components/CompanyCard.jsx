@@ -1,9 +1,15 @@
 import Link from "next/link"
-export default function Example({ companies }) {
+export default function CompanyCard({ companies }) {
   return (
     <ul role="list" className="mx-auto grid grid-cols-1 gap-6">
+<<<<<<< HEAD
       {companies.map((company) => (
         <li key={company.id} className="text-center mx-auto col-span-1 w-3/4 divide-y divide-gray-200 rounded-lg bg-white shadow h-80">
+=======
+      {companies.map((company, key) => (
+        
+        <li key={key} className="text-center mx-auto col-span-1 w-3/4 divide-y divide-gray-200 rounded-lg bg-white shadow h-80">
+>>>>>>> 180ec9d (changed the navbar and created a company register page)
           <div className='flex flex-col items-center h-5/6 justify-between sm:space-x-6 sm:p-6 p-3 sm:flex-row'>
             <div className="flex w-1/3">
               <div className="flex-1 truncate">

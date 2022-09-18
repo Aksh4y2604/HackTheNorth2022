@@ -3,6 +3,7 @@ const stats = [
     { name: 'Total Subscribers', stat: '71,897' },
     { name: 'Avg. Open Rate', stat: '58.16%' },
     { name: 'Avg. Click Rate', stat: '24.57%' },
+    { name: 'Avg. Click Rate', stat: '24.57%' },
   ]
   
   export default function Stats() {

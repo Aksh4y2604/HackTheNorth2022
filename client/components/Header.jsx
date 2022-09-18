@@ -12,6 +12,9 @@ export default function Header() {
               Give valueable feedback to growing startups and Earn. 
             </p>
           </div>
+          <div className="mx-auto mt-5 max-w-md sm:flex sm:justify-center md:mt-8">
+              
+            </div>
         </div>
       </div>
     )

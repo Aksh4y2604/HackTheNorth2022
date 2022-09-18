@@ -21,6 +21,11 @@ import Dropdown from "./Dropdown";
 
 
 export default function ReviewForm() {
+    const handleSubmit = (event) => {
+        event.preventDefault();
+        console.log(event.target[0].value); 
+        console.log(parseInt(event.target[2].value[0]))
+    }
     return (
         <>
             <div>
@@ -92,7 +97,20 @@ export default function ReviewForm() {
 
                                         </div>
                                         <div className="mx-auto pt-3 flex z-20">
+<<<<<<< HEAD
                                             <Dropdown></Dropdown>
+=======
+                                            <div className="flex items-center flex-row gap-3">
+                                                <label htmlFor="Rating" className="block text-sm font-medium text-gray-700">Rating</label>
+                                                <select id="ratings" name="ratings" defaultValue="4-Good" className="mt-1 block w-full rounded-md border-gray-300 py-2 pl-3 pr-10 text-base focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm">
+                                                    <option>1-Poor</option>
+                                                    <option>2-Bad</option>
+                                                    <option>3-Satisfactory</option>
+                                                    <option>4-Good</option>
+                                                    <option>5-Excellent</option>
+                                                </select>
+                                            </div>
+>>>>>>> 180ec9d (changed the navbar and created a company register page)
                                         </div>
                                     </div>
                                 </div>
