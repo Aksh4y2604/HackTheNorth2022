@@ -34,7 +34,7 @@ exports.cockInit = async (callback) => {
 // age can be null where you don't search for it
 async function getMatchedApplications(client, callback, testerId) {
   await client.query("BEGIN;");
-  const query = `SELECT company_name, product_desc, title, pay, img_url, issue_count_speed, issue_count_design, issue_count_accessibility, issue_count_usability from applicant WHERE target_min_age <= (SELECT age from tester WHERE id = ${testerId}) AND (SELECT age from tester WHERE id = ${testerId}) <= CAST(target_max_age as INT) AND (target_occupation = (SELECT occupation from tester where id = ${testerId}));`;
+  const query = `SELECT company_name, product_desc, title, pay, img_url from applicant WHERE target_min_age <= (SELECT age from tester WHERE id = ${testerId}) AND (SELECT age from tester WHERE id = ${testerId}) <= CAST(target_max_age as INT) AND (target_occupation = (SELECT occupation from tester where id = ${testerId}));`;
   await client.query(query, callback);
   await client.query("COMMIT;");
 }
@@ -60,7 +60,7 @@ exports.populateReviewTable = populateReviewTable;
 
 async function getApplicationOnDashboard (client, callback, applicationId) {
   await client.query("BEGIN;");
-  const query = `SELECT company_name, title, issue_count_speed, issue_count_design, issue_count_accessibility, issue_count_usability from applicant WHERE id = ${applicationId}));`;
+  const query = `SELECT company_name, product_desc, title, pay, img_url, issue_count_speed, issue_count_design, issue_count_accessibility, issue_count_usability from applicant WHERE id = ${applicationId};`;
   await client.query(query, callback);
   await client.query("COMMIT;");
 }

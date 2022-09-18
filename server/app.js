@@ -21,7 +21,7 @@ const initEndpoints = (client) => {
     await getApplicationOnDashboard(
       client,
       (err, application) => {
-        res.send(application);
+        res.send(application.rows[0]);
       },
       req.query.applicantId
     );
@@ -45,7 +45,7 @@ const initEndpoints = (client) => {
       !req.body ||
       !req.body.applicantId ||
       !req.body.feedback ||
-      !req.body.rating ||
+      !req.body.stars ||
       !req.body.firstName ||
       !req.body.lastName
     )
@@ -66,7 +66,7 @@ const initEndpoints = (client) => {
       () => {},
       req.body.applicantId,
       req.body.feedback,
-      req.body.rating,
+      req.body.stars,
       req.body.firstName,
       req.body.lastName
     );
