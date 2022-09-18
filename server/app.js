@@ -1,26 +1,34 @@
 const express = require("express");
 
 const { predictCategories } = require("./cohere");
-const { cockInit } = require("./db");
-const { getMatches } = require("./match");
+const { cockInit, getApplications, incrementIssue } = require("./db");
 
 const app = express();
+app.use(express.json());
 const port = process.env.PORT || 3000;
 
-app.get("/applications", async (req, res) => {
-  cockInit();
-  const related = await getMatches(req.body.age, req.body.industry);
-  res.send(related);
-});
+const initEndpoints = (client) => {
+  app.get("/applications", async (req, res) => {
+    await getApplications(
+      client,
+      (err, related) => {
+        res.send(related.rows);
+      },
+      req.body.testerId
+    );
+  });
 
-app.post("/review", async (req, res) => {
-  // Get categories from Cohere
-  const categories = await predictCategories();
+  app.post("/review", async (req, res) => {
+    // Get categories from Cohere
+    const classification = await predictCategories(req.body.review);
+    incrementIssue(client, () => {}, 3, classification[0].prediction);
 
-  // Save to db entry for this application
-  res.sendStatus(200);
-});
+    res.sendStatus(200);
+  });
 
-app.listen(port, "0.0.0.0", () => {
-  console.log(`Example app listening on port ${port}`);
-});
+  app.listen(port, "0.0.0.0", () => {
+    console.log(`Example app listening on port ${port}`);
+  });
+};
+
+cockInit(initEndpoints);
