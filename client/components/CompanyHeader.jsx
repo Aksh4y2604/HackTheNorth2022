@@ -1,6 +1,6 @@
 /* This example requires Tailwind CSS v2.0+ */
 
-  export default function CompanyHeader({company}) {
+  export default function CompanyHeader({ company }) {
     return (
       <div className="overflow-hidden rounded-lg bg-white shadow">
         <h2 className="sr-only" id="profile-overview-title">

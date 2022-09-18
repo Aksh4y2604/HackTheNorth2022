@@ -3,6 +3,7 @@ export default function Example({ companies }) {
   return (
     <ul role="list" className="mx-auto grid grid-cols-1 gap-6">
       {companies.map((company) => (
+        
         <li key={company.id} className="text-center mx-auto col-span-1 w-3/4 divide-y divide-gray-200 rounded-lg bg-white shadow h-80">
           <div className='flex flex-col items-center h-5/6 justify-between sm:space-x-6 sm:p-6 p-3 sm:flex-row'>
             <div className="flex w-1/3">
@@ -12,7 +13,7 @@ export default function Example({ companies }) {
 
                     {company.imageUrl ? <img className="h-20 w-20 flex-shrink-0 rounded-full object-scale-down bg-gray-300" src={company?.imageUrl} alt="" /> : null}
 
-                    <h3 className="underline truncate text-sm font-medium text-gray-900">{company.company}</h3>
+                    <h3 className="underline truncate text-sm font-medium text-gray-900">{company.company_name}</h3>
 
                   </div>
                 </a>
@@ -21,14 +22,14 @@ export default function Example({ companies }) {
             </div>
             <div className="flex w-2/3 items-center h-5/6 justify-between space-x-4 p-1 md:p-3 ">
 
-              <p className="text-gray-700 text-left line-clamp-3 md:line-clamp-5">{company.description}</p>
+              <p className="text-gray-700 text-left line-clamp-3 md:line-clamp-5">{company.product_desc}</p>
             </div>
           </div>
           <div>
             <div className="-mt-px flex divide-x divide-gray-200">
               <div className="flex w-0 flex-1">
                 <Link
-                  href={`review/${company.company.replace(/\s+/g, '-').toLowerCase()}`}
+                  href={`review/${company.company_name.replace(/\s+/g, '-').toLowerCase()}`}
                   className="relative -mr-px inline-flex w-0 flex-1 items-center justify-center rounded-bl-lg border border-transparent py-4 text-sm font-medium text-gray-700 hover:text-gray-500"
                 >
                   <a className="relative -mr-px inline-flex w-0 flex-1 items-center justify-center rounded-bl-lg border border-transparent py-4 text-sm font-medium text-gray-700 hover:text-gray-500">

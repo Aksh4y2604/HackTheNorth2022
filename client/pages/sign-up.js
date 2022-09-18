@@ -16,13 +16,37 @@
 */
 import { useState } from 'react'
 import { Switch } from '@headlessui/react'
-
+import Router from 'next/router'
+import axios from 'axios'
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
 }
 
-export default function Example() {
+export default function SignUp() {
   const [agreed, setAgreed] = useState(false)
+  let formData = {} 
+  
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    formData = {
+      firstName: event.target[0].value, 
+      lastName: event.target[1].value, 
+      email: event.target[2].value, 
+      age: event.target[3].value, 
+      industry: event.target[4].value, 
+      phone: event.target[5].value,
+    } 
+    axios.post('https://fathomless-dawn-21585.herokuapp.com/sign-up', formData)
+      .then((res) => {
+        console.log(res);
+        formData = {}
+      })
+      .catch((err) => {
+        console.log(err);
+        formData={}
+      })
+      Router.push('/')
+  }
 
   return (
     <div className="overflow-hidden bg-white py-16 px-4 sm:px-6 lg:px-8 lg:py-24">
@@ -79,7 +103,7 @@ export default function Example() {
           </p>
         </div>
         <div className="mt-12">
-          <form action="#" method="POST" className="grid grid-cols-1 gap-y-6 sm:grid-cols-2 sm:gap-x-8">
+          <form onSubmit={ handleSubmit } action="#" method="POST" className="grid grid-cols-1 gap-y-6 sm:grid-cols-2 sm:gap-x-8">
             <div>
               <label htmlFor="first-name" className="block text-sm font-medium text-gray-700">
                 First name
@@ -137,8 +161,8 @@ export default function Example() {
               </div>
             </div>
             <div className="sm:col-span-2" >
-              <label for="Industry" class="block text-sm font-medium text-gray-700">Industry</label>
-              <select id="Industry" name="Industry" class="mt-1 block w-full rounded-md border-gray-300 py-2 pl-3 pr-10 text-base focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm">
+              <label htmlFor="Industry" className="block text-sm font-medium text-gray-700">Industry</label>
+              <select id="Industry" name="Industry" className="mt-1 block w-full rounded-md border-gray-300 py-2 pl-3 pr-10 text-base focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm">
                 <option>Engineering</option>
                 <option>Finance</option>
                 <option>Tech</option>

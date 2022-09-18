@@ -21,6 +21,11 @@ import Dropdown from "./Dropdown";
 
 
 export default function ReviewForm() {
+    const handleSubmit = (event) => {
+        event.preventDefault();
+        console.log(event.target[0].value); 
+        console.log(event.target[2].value)
+    }
     return (
         <>
             <div>
@@ -39,7 +44,7 @@ export default function ReviewForm() {
                         </div>
                     </div>
                     <div className="mt-5 md:col-span-2 md:mt-0">
-                        <form action="#" method="POST">
+                        <form onSubmit={handleSubmit} action="#" method="POST">
                             <div className="shadow sm:rounded-md overflow-visible">
                                 <div className="space-y-6 bg-white px-4 py-5 sm:p-6">
                                     <div>
@@ -92,7 +97,16 @@ export default function ReviewForm() {
 
                                         </div>
                                         <div className="mx-auto pt-3 flex z-20">
-                                            <Dropdown></Dropdown>
+                                            <div className="flex items-center flex-row gap-3">
+                                                <label htmlFor="Rating" className="block text-sm font-medium text-gray-700">Location</label>
+                                                <select id="ratings" name="ratings" defaultValue="4-Good" className="mt-1 block w-full rounded-md border-gray-300 py-2 pl-3 pr-10 text-base focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm">
+                                                    <option>1-Poor</option>
+                                                    <option>2-Bad</option>
+                                                    <option>3-Satisfactory</option>
+                                                    <option>4-Good</option>
+                                                    <option>5-Excellent</option>
+                                                </select>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -101,7 +115,7 @@ export default function ReviewForm() {
                                         type="submit"
                                         className="inline-flex justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
                                     >
-                                        Save
+                                        Submit
                                     </button>
                                 </div>
                             </div>

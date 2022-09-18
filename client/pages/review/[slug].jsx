@@ -14,7 +14,6 @@ const data = {
         'https://avatars.githubusercontent.com/u/3384712?s=280&v=4',
     price: '5000CAD'
 }
-
 const company = {
     name: 'Jane Street',
     role: 'Hedge Fund in New York',
