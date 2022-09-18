@@ -61,7 +61,8 @@ function Index({ companies }) {
 
 export async function getStaticProps() {
 
-  const companies = await axios.get('https://fathomless-dawn-21585.herokuapp.com/applications');
+  const companies = await axios.get('https://fathomless-dawn-21585.herokuapp.com/applications', { params: { testerId: 8 } });
+  console.log(companies.data)
   return {
     props: {
       companies: companies.data,

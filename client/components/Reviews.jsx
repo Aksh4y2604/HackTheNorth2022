@@ -13,7 +13,19 @@ const reviews = [
     author: 'Risako M',
     date: 'May 16, 2021',
     datetime: '2021-01-06',
-  },
+    },
+    {
+        id: 1,
+        title: "Can't say enough good things",
+        rating: 5,
+        content: `
+          <p>I was really pleased with the overall shopping experience. My order even included a little personal, handwritten note, which delighted me!</p>
+          <p>The product quality is amazing, it looks and feel even better than I had anticipated. Brilliant stuff! I would gladly recommend this store to my friends. And, now that I think of it... I actually have, many times!</p>
+        `,
+        author: 'Risako M',
+        date: 'May 16, 2021',
+        datetime: '2021-01-06',
+      },
   // More reviews...
 ]
 
@@ -23,12 +35,12 @@ function classNames(...classes) {
 
 export default function Reviews() {
   return (
-    <div className="bg-white">
-      <div className="mx-auto max-w-2xl py-16 px-4 sm:py-24 sm:px-6 lg:max-w-7xl lg:px-8">
+    <div className="">
+      <div className="mx-auto max-w-2xl px-4 sm:py-15 sm:px-6 lg:max-w-7xl lg:px-8">
         <h2 className="text-lg font-medium text-gray-900">Recent reviews</h2>
         <div className="mt-6 space-y-10 divide-y divide-gray-200 border-t border-b border-gray-200 pb-10">
-          {reviews.map((review) => (
-            <div key={review.id} className="pt-10 lg:grid lg:grid-cols-12 lg:gap-x-8">
+          {reviews.map((review, key) => (
+            <div key={key} className="p-10 lg:grid lg:grid-cols-12 lg:gap-x-8 bg-white rounded-lg">
               <div className="lg:col-span-8 lg:col-start-5 xl:col-span-9 xl:col-start-4 xl:grid xl:grid-cols-3 xl:items-start xl:gap-x-8">
                 <div className="flex items-center xl:col-span-1">
                   <div className="flex items-center">
