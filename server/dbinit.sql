@@ -29,7 +29,11 @@ CREATE TABLE reviews (
     ID INT8 PRIMARY KEY NOT NULL,
     rating STRING,
     pos_feedback STRING,
-    neg_feedback STRING
+    neg_feedback STRING,
+    appl_id INT8,
+    first_name STRING,
+    last_name STRING,
+    stars INT8
 );
 -- company_name, title, product_desc, pay
 SELECT company_name,product_desc, title, pay from applicant 
@@ -42,4 +46,4 @@ AND (SELECT age from tester WHERE id = 8) <= CAST(target_max_age as INT);
 -- AND company_name IS NOT NULL;
 
 SELECT company_name, product_desc, title, pay from applicant 
-WHERE target_occupation = (SELECT occupation from tester where id = ${testerID});
+WHERE target_occupation = (SELECT occupation from tester where id = 8);

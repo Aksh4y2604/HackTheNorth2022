@@ -49,3 +49,27 @@ async function incrementIssue(client, callback, applicationId, issueName) {
 }
 
 exports.incrementIssue = incrementIssue;
+
+async function populateReviewTable (client, callback, applicationId,feedback, rating,firstName, lastName){
+  await client.query("BEGIN;");
+  const query= `INSERT INTO review(id,appl_id,stars,neg_feedback,first_name,last_name) VALUES(${math.random()},${applicationId},${rating},${feedback},${firstName},${lastName} );`;
+  await client.query(query, callback);
+  await client.query("COMMIT;");
+}
+exports.populateReviewTable = populateReviewTable;
+
+async function getApplicationOnDashboard (client,callback,applicationId){
+  await client.query("BEGIN;");
+  const query = `SELECT company_name, title, issue_count_speed, issue_count_design, issue_count_accessibility, issue_count_usability from applicant WHERE id = ${applicationId}));`;
+  await client.query(query, callback);
+  await client.query("COMMIT;");
+}
+exports.getApplicationOnDashboard = getApplicationOnDashboard;
+
+async function getReviewsOnDashboard (client, callback, applicationId){
+  await client.query("BEGIN;");
+  const query= `SELECT first_name, last_name, stars, neg_feedback FROM reviews WHERE appl_id = ${applicationId});`;
+  await client.query(query, callback);
+  await client.query("COMMIT;");
+}
+exports.getReviewsOnDashboard = getReviewsOnDashboard;
