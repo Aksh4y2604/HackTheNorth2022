@@ -20,7 +20,7 @@ import Dropdown from "./Dropdown";
 
 
 
-export default function ReviewForm() {
+export default function ReviewForm(data) {
     const handleSubmit = (event) => {
         event.preventDefault();
         console.log(event.target[0].value); 

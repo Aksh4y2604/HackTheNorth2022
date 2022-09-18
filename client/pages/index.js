@@ -66,7 +66,7 @@ export async function getStaticProps() {
       testerId:8
     }
   });
-  console.log(companies.data)
+
   return {
     props: {
       companies: companies.data,
