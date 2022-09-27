@@ -28,6 +28,7 @@ export default function SignUp() {
 
     const handleSubmit = async (event) => {
         event.preventDefault();
+        localStorage.setItem('companyName', event.target[0].value)
         formData = {
             companyName: event.target[0].value,
             product_title: event.target[1].value,
@@ -38,8 +39,6 @@ export default function SignUp() {
             industry: event.target[6].value,
             pay: event.target[7].value,
             phone: event.target[8].value,
-
-
         }
         axios.post('https://fathomless-dawn-21585.herokuapp.com/sign-up', formData)
             .then((res) => {

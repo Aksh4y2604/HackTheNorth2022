@@ -17,14 +17,44 @@
 */
 
 import Dropdown from "./Dropdown";
+import axios from 'axios'
+import Router from 'next/router'
 
-
-
-export default function ReviewForm() {
-    const handleSubmit = (event) => {
+export default function ReviewForm({ data, slug }) {
+    function capitalizeFirstLetter(string) {
+        return string.charAt(0).toUpperCase() + string.slice(1);
+      }
+    const handleSubmit = async (event) => {
         event.preventDefault();
-        console.log(event.target[0].value); 
+        console.log(event.target[0].value);
         console.log(parseInt(event.target[2].value[0]))
+        axios.post('https://fathomless-dawn-21585.herokuapp.com/review', {
+            companyName: capitalizeFirstLetter(slug),
+            feedback: event.target[0].value,
+            stars: parseInt(event.target[2].value[0]), 
+            firstName: 'Tanmay', 
+            lastName:'Pilla'
+        })
+        // fetch('https://fathomless-dawn-21585.herokuapp.com/review',
+        //     {
+        //         method: 'POST',
+        //         headers: {
+        //             'Content-Type': 'application/json',
+        //         },
+        //         body: {
+        //             companyName: slug,
+        //             feedback: event.target[0].value,
+        //             stars: parseInt(event.target[2].value[0])
+        //         }
+        //     }
+        // ).then((response) => response.json())
+        //     .then((data) => {
+        //         console.log('Success:', data);
+        //     })
+        //     .catch((error) => {
+        //         console.error('Error:', error);
+        //     });
+        Router.push('/');
     }
     return (
         <>
@@ -44,7 +74,7 @@ export default function ReviewForm() {
                         </div>
                     </div>
                     <div className="mt-5 md:col-span-2 md:mt-0">
-                        <form action="#" method="POST">
+                        <form onSubmit={handleSubmit} action="#" method="POST">
                             <div className="shadow sm:rounded-md overflow-visible">
                                 <div className="space-y-6 bg-white px-4 py-5 sm:p-6">
                                     <div>
@@ -115,7 +145,7 @@ export default function ReviewForm() {
                                         type="submit"
                                         className="inline-flex justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
                                     >
-                                        Save
+                                        Submit
                                     </button>
                                 </div>
                             </div>

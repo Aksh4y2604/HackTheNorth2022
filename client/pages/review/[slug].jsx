@@ -38,7 +38,7 @@ export default function Review({ data }) {
             </div>
             <div className='flex-col w-full p-10'>
 
-                <ReviewForm data={data} ></ReviewForm>
+                <ReviewForm data={data} slug={slug} ></ReviewForm>
             </div>
             <Footer></Footer>
 
@@ -47,7 +47,9 @@ export default function Review({ data }) {
     )
 }
 
-export async function getStaticProps() {
+export async function getStaticProps({ params }) {
+    const { slug } = params
+    console.log('slug', slug )
     const companies = await axios.get('https://fathomless-dawn-21585.herokuapp.com/applications', {
     params: {
       testerId:8
@@ -59,7 +61,8 @@ export async function getStaticProps() {
 
     return {
         props: {
-            data: companyData
+            data: companyData,
+            slug: slug, 
         },
         revalidate: 3600,
     }

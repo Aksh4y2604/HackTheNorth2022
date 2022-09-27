@@ -1,11 +1,13 @@
 /* This example requires Tailwind CSS v2.0+ */
-const stats = [
-  { name: 'Total Subscribers', stat: '71,897' },
-  { name: 'Avg. Open Rate', stat: '58.16%' },
-  { name: 'Avg. Click Rate', stat: '24.57%' },
+const stats1 = [
+  { name: 'Accessbility Issues', stat: 5 },
+  { name: 'Design Issues', stat: 6},
+  { name: 'Speed Issues', stat: 0 },
+  { name: 'Usability Issues', stat: 1 },
 ]
 
-export default function Stats() {
+export default function Stats({ stats }) {
+  console.log('statsabcsd', stats)
   return (
     <div className="mx-auto max-w-2xl sm:pt-15 lg:max-w-7xl  px-4 sm:py-20 sm:px-6 lg:px-8 w-full sm:pb-5">
       <h3 className="text-lg mx-auto font-medium leading-6 text-gray-900">Last 30 days</h3>

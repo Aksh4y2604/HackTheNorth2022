@@ -7,10 +7,10 @@ export default function Example({ companies }) {
           <div className='flex flex-col items-center h-5/6 justify-between sm:space-x-6 sm:p-6 p-3 sm:flex-row'>
             <div className="flex w-1/3">
               <div className="flex-1 truncate">
-                <a className='no-decoration' href={company.demo}>
+                <a className='no-decoration' href={company.demo_url}>
                   <div className="flex flex-col sm:flex-row items-center space-x-3 justify-center">
 
-                    {company.imageUrl ? <img className="h-20 w-20 flex-shrink-0 rounded-full object-scale-down bg-gray-300" src={company?.imageUrl} alt="" /> : null}
+                    {company.img_url ? <img className="h-20 w-20 flex-shrink-0 rounded-full object-scale-down bg-gray-300" src={company?.img_url} alt="" /> : null}
 
                     <h3 className="underline truncate text-sm font-medium text-gray-900">{company.company_name}</h3>
 
