@@ -1,0 +1,26 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+boundary RequestHandler
+database CockroachDB
+
+-> RequestHandler: GET /matches
+alt Request invalid
+    <-- RequestHandler: <b>[400]
+end
+
+RequestHandler -> CockroachDB ++ : Get tester
+alt Read failure
+    RequestHandler <-- CockroachDB: null
+    <-- RequestHandler : <b>[500]
+end
+RequestHandler <- CockroachDB -- : Tester
+RequestHandler -> CockroachDB ++ : Get matched products
+alt Read failure
+    RequestHandler <-- CockroachDB: null
+    <-- RequestHandler : <b>[500]
+end
+RequestHandler <- CockroachDB -- : Product[]
+<- RequestHandler : <b>[200]
+
+@enduml

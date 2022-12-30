@@ -1,0 +1,32 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+interface IDatabaseService {
+    init()
+    addReview(Review r)
+    getReviews(String companyName)
+    addProduct(Product a)
+    getProducts(String companyName)
+    getMatchedProducts()
+}
+interface IPredictionService {
+    init()
+    getCategories(Review r)
+}
+class CockroachDB
+class Cohere
+class Product
+class Review
+class RequestHandler
+class Tester
+
+RequestHandler *-- IDatabaseService
+RequestHandler *-- IPredictionService
+IDatabaseService <|-- CockroachDB
+IPredictionService <|-- Cohere
+IDatabaseService -- Review
+IDatabaseService -- Product
+IDatabaseService -- Tester
+IPredictionService -- Review
+
+@enduml

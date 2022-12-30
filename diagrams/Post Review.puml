@@ -1,0 +1,28 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+boundary RequestHandler
+boundary PredictionService
+database CockroachDB
+
+-> RequestHandler: POST /review
+alt Request invalid
+    <-- RequestHandler: <b>[400]
+end
+
+RequestHandler -> PredictionService ++ : Categorize review
+alt Prediction failure
+    RequestHandler <-- PredictionService: null
+    <-- RequestHandler : <b>[500]
+end
+
+RequestHandler <- PredictionService -- : Category
+RequestHandler -> CockroachDB ++ : Save review
+alt Save failure
+    RequestHandler <-- CockroachDB: <b>failure
+    <-- RequestHandler : <b>[500]
+end
+RequestHandler <- CockroachDB -- : <b>success
+<- RequestHandler : <b>[200]
+
+@enduml

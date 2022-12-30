@@ -1,0 +1,20 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+boundary RequestHandler
+database CockroachDB
+
+-> RequestHandler: GET /reviews
+alt Request invalid
+    <-- RequestHandler: <b>[400]
+end
+
+RequestHandler -> CockroachDB ++ : Get reviews
+alt Read failure
+    RequestHandler <-- CockroachDB: null
+    <-- RequestHandler : <b>[500]
+end
+RequestHandler <- CockroachDB -- : Review[]
+<- RequestHandler : <b>[200]
+
+@enduml
