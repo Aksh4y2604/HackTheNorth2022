@@ -1,0 +1,20 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+boundary RequestHandler
+database CockroachDB
+
+-> RequestHandler: POST /product
+alt Request invalid
+    <-- RequestHandler: <b>[400]
+end
+
+RequestHandler -> CockroachDB ++ : Save product
+alt Save failure
+    RequestHandler <-- CockroachDB: <b>failure
+    <-- RequestHandler : <b>[500]
+end
+RequestHandler <- CockroachDB -- : <b>success
+<- RequestHandler : <b>[200]
+
+@enduml
