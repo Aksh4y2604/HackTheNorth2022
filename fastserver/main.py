@@ -3,7 +3,7 @@ from fastapi import FastAPI
 from sqlalchemy.engine import Engine
 from sqlalchemy.orm import sessionmaker
 
-from db import CockroachDB
+from db import CockroachService
 from dtos import *
 from models import *
 from prediction import Cohere
@@ -131,5 +131,5 @@ def init_endpoints(engine: Engine):
             return "Couldn't add company in database."
 
 
-database = CockroachDB(init_endpoints)
+database = CockroachService(init_endpoints)
 predictor = Cohere()

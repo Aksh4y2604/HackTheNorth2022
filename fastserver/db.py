@@ -49,7 +49,7 @@ class IDatabaseService:
         pass
 
 
-class CockroachDB(IDatabaseService):
+class CockroachService(IDatabaseService):
     def __init__(self, callback: Callable[[Engine], None]) -> None:
         super().__init__()
         engine = create_engine(os.getenv("DATABASE_URL"))

@@ -1,5 +1,7 @@
+import os
 import cohere
 from cohere.classify import Example
+from dotenv import load_dotenv
 
 
 class IPredictionService:
@@ -15,7 +17,8 @@ class IPredictionService:
 class Cohere(IPredictionService):
     def __init__(self):
         super().__init__()
-        self.client = cohere.Client("sXrmZhvNoYZYRPmqrQoDceA5kiH24Y8zwXSWAcjY")
+        load_dotenv()
+        self.client = cohere.Client(os.getenv("COHERE_API_KEY"))
 
     def get_categories(self, feedback: str) -> str:
         response = self.client.classify(inputs=[feedback], examples=examples)
