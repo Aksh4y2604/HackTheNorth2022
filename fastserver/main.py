@@ -1,4 +1,3 @@
-import json
 from uuid import uuid4 as uuid
 from fastapi import FastAPI
 from sqlalchemy.engine import Engine
@@ -7,6 +6,7 @@ from sqlalchemy.orm import sessionmaker
 from db import CockroachDB
 from dtos import *
 from models import *
+from prediction import Cohere
 
 app = FastAPI()
 Session = sessionmaker()
@@ -29,10 +29,26 @@ def init_endpoints(engine: Engine):
             feedback=dto.feedback
         )
         session = Session()
+        response = {}
+        try:
+            label = predictor.get_categories(dto.feedback)
+            response.update({"label": label})
+            product = database.get_product(session, str(dto.product_id))
+            if label in product.issues:
+                product.issues[label] += 1
+            else:
+                product.issues[label] = 1
+
+            database.update_product(session, product)
+            session.commit()
+        except:
+            print("Couldn't categorize review.")
+
         try:
             database.add_review(session, new_review)
             session.commit()
-            return {"review_id": new_review.id}
+            response.update({"review_id": new_review.id})
+            return response
         except:
             return "Couldn't add review in database."
 
@@ -116,3 +132,4 @@ def init_endpoints(engine: Engine):
 
 
 database = CockroachDB(init_endpoints)
+predictor = Cohere()

@@ -1,7 +1,7 @@
 import os
 from typing import Callable
 from dotenv import load_dotenv
-from sqlalchemy import create_engine, text
+from sqlalchemy import create_engine, update
 from sqlalchemy.orm import Session
 from sqlalchemy.engine import Engine
 
@@ -23,6 +23,13 @@ class IDatabaseService:
 
     def add_product(self, session: Session, product: Product) -> None:
         """Adds a product to the product table."""
+        pass
+
+    def update_product(self, session: Session, product: Product) -> None:
+        """Updates a product in the product table."""
+
+    def get_product(self, session: Session, product_id: str) -> Product:
+        """Returns the product with the given id."""
         pass
 
     def get_products(self, session: Session, company_id: str) -> list[Product]:
@@ -51,15 +58,23 @@ class CockroachDB(IDatabaseService):
         callback(engine)
 
     def add_review(self, session: Session, review: Review) -> None:
-        print(review)
         session.add(review)
 
     def get_reviews(self, session: Session, product_id: str) -> list[Review]:
         return session.query(Review).filter_by(product_id=product_id).all()
 
-    def add_product(self, session: Session, product: Product):
+    def add_product(self, session: Session, product: Product) -> None:
         session.add(product)
-        return product
+
+    def update_product(self, session: Session, product: Product) -> None:
+        session.execute(
+            update(Product.__table__)
+            .where(Product.__table__.c.id == product.id)
+            .values(issues=product.issues)
+        )
+
+    def get_product(self, session: Session, product_id: str) -> Product:
+        return session.query(Product).filter_by(id=product_id).first()
 
     def get_products(self, session: Session, company_id: str) -> list[Product]:
         return session.query(Product).filter_by(company_id=company_id).all()
