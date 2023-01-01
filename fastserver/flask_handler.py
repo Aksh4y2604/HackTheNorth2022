@@ -1,39 +1,34 @@
 from uuid import uuid4 as uuid
-from fastapi import FastAPI
+from flask import Flask, request, jsonify
 from sqlalchemy.engine import Engine
 from sqlalchemy.orm import sessionmaker
 
 from db import CockroachService
-from dtos import *
 from models import *
 from prediction import CohereService
 
-app = FastAPI()
 Session = sessionmaker()
+app = Flask(__name__)
 
 
 def init_endpoints(engine: Engine):
     Session.configure(bind=engine)
 
-    @app.get("/")
-    async def root():
-        return {"message": "Hello World"}
-
-    @app.post("/review/", status_code=201)
-    async def add_review(dto: ReviewDto):
+    @app.post("/review/")
+    def add_review():
         new_review = Review(
             id=uuid(),
-            tester_id=dto.tester_id,
-            product_id=dto.product_id,
-            rating=dto.rating,
-            feedback=dto.feedback
+            tester_id=request.json.get("tester_id"),
+            product_id=request.json.get("product_id"),
+            rating=request.json.get("rating"),
+            feedback=request.json.get("feedback")
         )
         session = Session()
         response = {}
         try:
-            label = predictor.get_categories(dto.feedback)
+            label = predictor.get_categories(new_review.feedback)
             response.update({"label": label})
-            product = database.get_product(session, str(dto.product_id))
+            product = database.get_product(session, str(new_review.product_id))
             if label in product.issues:
                 product.issues[label] += 1
             else:
@@ -48,29 +43,29 @@ def init_endpoints(engine: Engine):
             database.add_review(session, new_review)
             session.commit()
             response.update({"review_id": new_review.id})
-            return response
+            return jsonify(response)
         except:
             return "Couldn't add review in database."
 
-    @app.get("/review/", status_code=200)
-    async def get_reviews(product_id: str):
+    @app.get("/review/")
+    def get_reviews():
         session = Session()
         try:
-            res = database.get_reviews(session, product_id)
-            return res
+            res = database.get_reviews(session, request.args.get("product_id"))
+            return [{"id": r.id, "rating": r.rating, "feedback": r.feedback} for r in res]
         except:
             return "Couldn't read reviews table."
 
-    @app.post("/product/", status_code=201)
-    async def add_product(dto: ProductDto):
+    @app.post("/product/")
+    def add_product():
         new_product = Product(
             id=uuid(),
-            company_id=dto.company_id,
-            name=dto.name,
-            description=dto.description,
-            hourly=dto.hourly,
-            target_age=dto.target_age,
-            target_industry=dto.target_industry,
+            company_id=request.json.get("product_id"),
+            name=request.json.get("name"),
+            description=request.json.get("description"),
+            hourly=request.json.get("hourly"),
+            target_age=request.json.get("target_age"),
+            target_industry=request.json.get("target_industry"),
             issues={}
         )
         session = Session()
@@ -81,31 +76,31 @@ def init_endpoints(engine: Engine):
         except:
             return "Couldn't add product in database."
 
-    @app.get("/product/", status_code=200)
-    async def get_products(company_id: str):
+    @app.get("/product/")
+    def get_products():
         session = Session()
         try:
-            res = database.get_products(session, company_id)
-            return res
+            res = database.get_products(session, request.args.get("company_id"))
+            return [{"id": r.id, "name": r.name, "issues": r.issues} for r in res]
         except:
             return "Couldn't read product table."
 
-    @app.get("/matches/", status_code=200)
-    async def get_matches(tester_id: str):
+    @app.get("/matches/")
+    def get_matches():
         session = Session()
         try:
-            res = database.get_matched_products(session, tester_id)
-            return res
+            res = database.get_matched_products(session, request.args.get("tester_id"))
+            return [{"id": r.id, "name": r.name, "issues": r.issues} for r in res]
         except:
             return "Couldn't read product table."
 
-    @app.post("/tester/", status_code=201)
-    async def add_tester(dto: TesterDto):
+    @app.post("/tester/")
+    def add_tester():
         new_tester = Tester(
             id=uuid(),
-            username=dto.username,
-            industry=dto.industry,
-            age=dto.age
+            username=request.json.get("username"),
+            industry=request.json.get("industry"),
+            age=request.json.get("age")
         )
         session = Session()
         try:
@@ -115,12 +110,12 @@ def init_endpoints(engine: Engine):
         except:
             return "Couldn't add tester in database."
 
-    @app.post("/company/", status_code=201)
-    async def add_company(dto: CompanyDto):
+    @app.post("/company/")
+    def add_company():
         new_company = Company(
             id=uuid(),
-            name=dto.name,
-            email=dto.email
+            name=request.json.get("name"),
+            email=request.json.get("email")
         )
         session = Session()
         try:
@@ -131,5 +126,8 @@ def init_endpoints(engine: Engine):
             return "Couldn't add company in database."
 
 
-database = CockroachService(init_endpoints)
-predictor = CohereService()
+if __name__ == "__main__":
+    database = CockroachService(init_endpoints)
+    predictor = CohereService()
+    app.run(port=8000)
+

@@ -14,7 +14,7 @@ class IPredictionService:
         pass
 
 
-class Cohere(IPredictionService):
+class CohereService(IPredictionService):
     def __init__(self):
         super().__init__()
         load_dotenv()
