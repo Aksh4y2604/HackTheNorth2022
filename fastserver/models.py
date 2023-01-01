@@ -14,6 +14,9 @@ class Tester(Base):
     age = Column(SmallInteger())
     industry = Column(String(200))
 
+    def __repr__(self):
+        return f"Tester<{self.id} | {self.username}>"
+
 
 class Company(Base):
     """A model of a company."""
@@ -22,6 +25,9 @@ class Company(Base):
 
     name = Column(String(200))
     email = Column(String(200))
+
+    def __repr__(self):
+        return f"Company<{self.id} | {self.name}>"
 
 
 class Product(Base):
@@ -37,6 +43,9 @@ class Product(Base):
     target_industry = Column(String(200))
     issues = Column(JSONB)
 
+    def __repr__(self):
+        return f"Product<{self.id} | {self.name}>"
+
 
 class Review(Base):
     """A model of a review."""
@@ -48,3 +57,5 @@ class Review(Base):
     rating = Column(Numeric(10, 2))
     feedback = Column(String(2000))
 
+    def __repr__(self):
+        return f"Review<{self.id} | {self.rating}>"
