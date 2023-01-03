@@ -4,17 +4,7 @@ from cohere.classify import Example
 from dotenv import load_dotenv
 
 
-class IPredictionService:
-    def __init__(self):
-        """Connect to prediction service."""
-        pass
-
-    def get_categories(self, feedback: str) -> str:
-        """Return prediction of categories of review"""
-        pass
-
-
-class CohereService(IPredictionService):
+class CohereService:
     def __init__(self):
         super().__init__()
         load_dotenv()

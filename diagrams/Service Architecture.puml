@@ -1,7 +1,7 @@
 @startuml
 'https://plantuml.com/class-diagram
 
-interface IDatabaseService {
+class DatabaseService {
     init()
     addReview(Review r)
     getReviews(String companyName)
@@ -9,24 +9,20 @@ interface IDatabaseService {
     getProducts(String companyName)
     getMatchedProducts()
 }
-interface IPredictionService {
+class PredictionService {
     init()
     getCategories(Review r)
 }
-class CockroachDB
-class Cohere
 class Product
 class Review
 class RequestHandler
 class Tester
 
-RequestHandler *-- IDatabaseService
-RequestHandler *-- IPredictionService
-IDatabaseService <|-- CockroachDB
-IPredictionService <|-- Cohere
-IDatabaseService -- Review
-IDatabaseService -- Product
-IDatabaseService -- Tester
-IPredictionService -- Review
+RequestHandler *-- DatabaseService
+RequestHandler *-- PredictionService
+DatabaseService -- Review
+DatabaseService -- Product
+DatabaseService -- Tester
+PredictionService -- Review
 
 @enduml
