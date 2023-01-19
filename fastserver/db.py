@@ -9,7 +9,8 @@ from models import *
 
 
 class CockroachService:
-    def __init__(self, callback: Callable[[Engine], None]) -> None:
+    @staticmethod
+    def connect(callback: Callable[[Engine], None]) -> None:
         """Connects to the database."""
         engine = create_engine(os.getenv("DATABASE_URL"))
         Base.metadata.create_all(engine)
@@ -22,7 +23,7 @@ class CockroachService:
         session.add(review)
 
     @staticmethod
-    def get_reviews(session: Session, product_id: str) -> list[Review]:
+    def get_reviews(session: Session, product_id: str) -> "list[Review]":
         """Returns the reviews for the given product."""
         return session.query(Review).filter_by(product_id=product_id).all()
 
@@ -46,12 +47,12 @@ class CockroachService:
         return session.query(Product).filter_by(id=product_id).first()
 
     @staticmethod
-    def get_products(session: Session, company_id: str) -> list[Product]:
+    def get_products(session: Session, company_id: str) -> "list[Product]":
         """Returns the products of the given company."""
         return session.query(Product).filter_by(company_id=company_id).all()
 
     @staticmethod
-    def get_matched_products(session: Session, tester_id: str) -> list[Product]:
+    def get_matched_products(session: Session, tester_id: str) -> "list[Product]":
         """Returns the products matched with a given tester."""
         tester = session.query(Tester).filter_by(id=tester_id).first()
         products = session.query(Product).all()
